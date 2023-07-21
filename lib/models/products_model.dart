@@ -24,7 +24,7 @@ class Product {
       _products = <ProductModel>[];
       (json['products'] as List).forEach(
         (e) {
-          _products!.add(ProductModel.fromJson(e));
+          _products.add(ProductModel.fromJson(e));
         },
       );
     }
