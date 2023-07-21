@@ -166,7 +166,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                     text: "\$10 | Add to cart",
                     color: Colors.white,
                   ),
-                )
+                ),
               ],
             ),
           ),
