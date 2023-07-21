@@ -20,7 +20,7 @@ class AppColumn extends StatelessWidget {
           size: Dimensions.font26,
         ),
         SizedBox(
-          height: Dimensions.height10,
+          height: Dimensions.height5,
         ),
         Row(
           children: [
@@ -31,25 +31,25 @@ class AppColumn extends StatelessWidget {
                   return Icon(
                     Icons.star,
                     color: AppColors.mainColor,
-                    size: 15,
+                    size: Dimensions.iconSize16,
                   );
                 },
               ),
             ),
             SizedBox(
-              width: 10,
+              width: Dimensions.width10,
             ),
             SmallText(
               text: "4.5",
             ),
             SizedBox(
-              width: 10,
+              width: Dimensions.width10,
             ),
             SmallText(
               text: "1250",
             ),
             SizedBox(
-              width: 10,
+              width: Dimensions.width10,
             ),
             SmallText(
               text: "comments",
@@ -57,7 +57,7 @@ class AppColumn extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: Dimensions.height20,
+          height: Dimensions.height10,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
