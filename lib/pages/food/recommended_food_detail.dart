@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_project/controllers/popular_product_controller.dart';
 import 'package:food_delivery_project/controllers/recommended_product_controller.dart';
+import 'package:food_delivery_project/pages/cart/cart_page.dart';
 import 'package:food_delivery_project/utils/colors.dart';
 import 'package:food_delivery_project/utils/dimensions.dart';
 import 'package:food_delivery_project/widgets/app_icon.dart';
@@ -48,34 +49,39 @@ class RecommendedFoodDetail extends StatelessWidget {
                   ),
                   GetBuilder<PopularProductController>(
                     builder: (controller) {
-                      return Stack(
-                        children: [
-                          AppIcon(
-                            icon: Icons.shopping_cart_outlined,
-                          ),
-                          Get.find<PopularProductController>().totalItems >= 1
-                              ? Positioned(
-                                  right: 0,
-                                  top: 0,
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: Dimensions.height5,
-                                        horizontal: Dimensions.height5),
-                                    decoration: BoxDecoration(
-                                      color: AppColors.mainColor,
-                                      shape: BoxShape.circle,
+                      return GestureDetector(
+                        onTap: () {
+                          if (controller.totalItems >= 1) {
+                            Get.toNamed(RouteHelper.getCartPage());
+                          }
+                        },
+                        child: Stack(
+                          children: [
+                            AppIcon(
+                              icon: Icons.shopping_cart_outlined,
+                            ),
+                            controller.totalItems >= 1
+                                ? Positioned(
+                                    right: 0,
+                                    top: 0,
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: Dimensions.height5,
+                                          horizontal: Dimensions.height5),
+                                      decoration: BoxDecoration(
+                                        color: AppColors.mainColor,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: BigText(
+                                        text: controller.totalItems.toString(),
+                                        size: Dimensions.font12,
+                                        color: Colors.white,
+                                      ),
                                     ),
-                                    child: BigText(
-                                      text: Get.find<PopularProductController>()
-                                          .totalItems
-                                          .toString(),
-                                      size: Dimensions.font12,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                )
-                              : Container(),
-                        ],
+                                  )
+                                : Container(),
+                          ],
+                        ),
                       );
                     },
                   ),
