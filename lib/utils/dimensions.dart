@@ -42,6 +42,7 @@ class Dimensions {
 
   // icon size
   static double iconSize16 = screenHeight / 52.75;
+  static double iconSize20 = screenHeight / 42.2;
   static double iconSize24 = screenHeight / 35.17;
 
   // image size
