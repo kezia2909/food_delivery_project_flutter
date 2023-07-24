@@ -18,7 +18,9 @@ import '../../widgets/small_text.dart';
 
 class PopularFoodDetail extends StatelessWidget {
   final int index;
-  PopularFoodDetail({Key? key, required this.index}) : super(key: key);
+  final String page;
+  PopularFoodDetail({Key? key, required this.index, required this.page})
+      : super(key: key);
   // const PopularFoodDetail(int? index, {super.key});
 
   @override
@@ -61,7 +63,12 @@ class PopularFoodDetail extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Get.toNamed(RouteHelper.getInitial());
+                    if (page == "cartpage") {
+                      print("GET CART PAGE");
+                      Get.toNamed(RouteHelper.getCartPage());
+                    } else {
+                      Get.toNamed(RouteHelper.getInitial());
+                    }
                   },
                   child: AppIcon(
                     icon: Icons.arrow_back,

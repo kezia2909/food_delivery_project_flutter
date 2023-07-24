@@ -15,7 +15,9 @@ import '../../utils/app_constants.dart';
 
 class RecommendedFoodDetail extends StatelessWidget {
   final int index;
-  RecommendedFoodDetail({Key? key, required this.index}) : super(key: key);
+  final String page;
+  RecommendedFoodDetail({Key? key, required this.index, required this.page})
+      : super(key: key);
 
   // const RecommendedFoodDetail({super.key, required int index});
 
@@ -41,7 +43,12 @@ class RecommendedFoodDetail extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Get.toNamed(RouteHelper.getInitial());
+                      if (page == "cartpage") {
+                        print("GET CART PAGE");
+                        Get.toNamed(RouteHelper.getCartPage());
+                      } else {
+                        Get.toNamed(RouteHelper.getInitial());
+                      }
                     },
                     child: AppIcon(
                       icon: Icons.clear,
