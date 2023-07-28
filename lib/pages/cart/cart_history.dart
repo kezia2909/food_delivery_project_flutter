@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:food_delivery_project/controllers/cart_controller.dart';
+import 'package:food_delivery_project/models/cart_model.dart';
+import 'package:food_delivery_project/routes/route_helper.dart';
 import 'package:food_delivery_project/utils/app_constants.dart';
 import 'package:food_delivery_project/utils/colors.dart';
 import 'package:food_delivery_project/utils/dimensions.dart';
@@ -14,7 +18,8 @@ class CartHistory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var getCartHistoryList = Get.find<CartController>().getCartHistoryList();
+    var getCartHistoryList =
+        Get.find<CartController>().getCartHistoryList().reversed.toList();
     Map<String, int> cartItemsPerOrder = Map();
 
     for (int i = 0; i < getCartHistoryList.length; i++) {
@@ -28,14 +33,15 @@ class CartHistory extends StatelessWidget {
 
     // print(cartItesPerOrder);
 
-    List<int> cartOrderTimeToList() {
-//     return cartItemsPreOrder.entries.map((e)=>e.value).toList();
-      return cartItemsPerOrder.entries.map((e) {
-        return e.value;
-      }).toList();
+    List<int> cartItemsPerOrderToList() {
+      return cartItemsPerOrder.entries.map((e) => e.value).toList();
     }
 
-    List<int> itemsPerOrder = cartOrderTimeToList();
+    List<String> cartOrderTimeToList() {
+      return cartItemsPerOrder.entries.map((e) => e.key).toList();
+    }
+
+    List<int> itemsPerOrder = cartItemsPerOrderToList();
 
     var listCounter = 0;
     // for (int x = 0; x < cartItemsPreOrder.length; x++) {
@@ -155,21 +161,53 @@ class CartHistory extends StatelessWidget {
                                               " Items",
                                           color: AppColors.titleColor,
                                         ),
-                                        Container(
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: Dimensions.width10,
-                                            vertical: Dimensions.height5,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(
-                                                Dimensions.radius15 / 2),
-                                            border: Border.all(
-                                                width: 1,
-                                                color: AppColors.mainColor),
-                                          ),
-                                          child: SmallText(
-                                            text: "one more",
-                                            color: AppColors.mainColor,
+                                        GestureDetector(
+                                          onTap: () {
+                                            var orderTime =
+                                                cartOrderTimeToList();
+                                            // print("order tme : " +
+                                            //     orderTime[i].toString());
+                                            Map<int, CartModel> moreOrder = {};
+                                            print(
+                                                "============================");
+                                            for (int j = 0;
+                                                j < getCartHistoryList.length;
+                                                j++) {
+                                              if (getCartHistoryList[j].time ==
+                                                  orderTime[i]) {
+                                                moreOrder.putIfAbsent(
+                                                    getCartHistoryList[j].id!,
+                                                    () => CartModel.fromJson(
+                                                            jsonDecode(
+                                                                jsonEncode(
+                                                          getCartHistoryList[j],
+                                                        ))));
+                                              }
+                                            }
+                                            Get.find<CartController>()
+                                                .setItems = moreOrder;
+                                            Get.find<CartController>()
+                                                .addToCartList();
+                                            Get.toNamed(
+                                                RouteHelper.getCartPage());
+                                          },
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: Dimensions.width10,
+                                              vertical: Dimensions.height5,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      Dimensions.radius15 / 2),
+                                              border: Border.all(
+                                                  width: 1,
+                                                  color: AppColors.mainColor),
+                                            ),
+                                            child: SmallText(
+                                              text: "one more",
+                                              color: AppColors.mainColor,
+                                            ),
                                           ),
                                         )
                                       ]),
