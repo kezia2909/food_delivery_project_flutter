@@ -52,6 +52,19 @@ class CartHistory extends StatelessWidget {
     //   }
     // }
 
+    Widget timeWidget(int index) {
+      var outputDate = DateTime.now().toString();
+      if (index < getCartHistoryList.length) {
+        DateTime parseDate = DateFormat("yyy-MM-dd HH:mm:ss")
+            .parse(getCartHistoryList[listCounter].time!);
+
+        var inputDate = DateTime.parse(parseDate.toString());
+        var outputFormat = DateFormat("MM/dd/yyy hh:mm a");
+        outputDate = outputFormat.format(inputDate);
+      }
+      return BigText(text: outputDate);
+    }
+
     return Scaffold(
       body: Column(
         children: [
@@ -97,20 +110,7 @@ class CartHistory extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    (() {
-                                      DateTime parseDate = DateFormat(
-                                              "yyy-MM-dd HH:mm:ss")
-                                          .parse(getCartHistoryList[listCounter]
-                                              .time!);
-
-                                      var inputDate =
-                                          DateTime.parse(parseDate.toString());
-                                      var outputFormat =
-                                          DateFormat("MM/dd/yyy hh:mm a");
-                                      var outputDate =
-                                          outputFormat.format(inputDate);
-                                      return BigText(text: outputDate);
-                                    }()),
+                                    timeWidget(listCounter),
                                     SizedBox(
                                       height: Dimensions.height10,
                                     ),
