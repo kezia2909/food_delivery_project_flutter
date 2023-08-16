@@ -164,7 +164,41 @@ class AccountPage extends StatelessWidget {
                   )
                 : CustomLoader())
             : Container(
-                child: Center(child: Text("You must Login")),
+                child: Center(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    BigText(
+                      text: "You must Sign In",
+                      size: Dimensions.font26,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Get.toNamed(RouteHelper.getSignInPage());
+                      },
+                      child: Container(
+                        width: double.maxFinite,
+                        height: Dimensions.height100,
+                        margin: EdgeInsets.only(
+                          left: Dimensions.width20,
+                          right: Dimensions.width20,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColors.mainColor,
+                          borderRadius: BorderRadius.circular(
+                            Dimensions.radius20,
+                          ),
+                        ),
+                        child: Center(
+                            child: BigText(
+                          text: "Sign in",
+                          color: Colors.white,
+                          size: Dimensions.font26,
+                        )),
+                      ),
+                    )
+                  ],
+                )),
               );
       }),
     );
