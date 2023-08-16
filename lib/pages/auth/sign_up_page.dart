@@ -1,5 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
+import 'package:food_delivery_project/base/show_custom_snack_bar.dart';
+import 'package:food_delivery_project/controllers/auth_controller.dart';
+import 'package:food_delivery_project/models/signup_body_model.dart';
+
 import 'package:food_delivery_project/pages/auth/sign_in_page.dart';
 import 'package:food_delivery_project/utils/colors.dart';
 import 'package:food_delivery_project/utils/dimensions.dart';
@@ -21,6 +26,51 @@ class SignUpPage extends StatelessWidget {
       "facebook.png",
       "twitter.png",
     ];
+
+    void _registration() {
+      var authController = Get.find<AuthController>();
+
+      String name = nameController.text.trim();
+      String phone = phoneController.text.trim();
+      String email = emailController.text.trim();
+      String password = passwordController.text.trim();
+
+      if (name.isEmpty) {
+        showCustomSnackBar("Type in your name", title: "Name");
+      } else if (phone.isEmpty) {
+        showCustomSnackBar("Type in your phone number", title: "Phone number");
+      } else if (email.isEmpty) {
+        showCustomSnackBar("Type in your email address",
+            title: "Email address");
+      } else if (!GetUtils.isEmail(email)) {
+        showCustomSnackBar("Type in your valid email addres",
+            title: "Valid email addres");
+      } else if (password.isEmpty) {
+        showCustomSnackBar("Type in your password", title: "Password");
+      } else if (password.length < 6) {
+        showCustomSnackBar("Password must be 6 characters or more",
+            title: "Password");
+      } else {
+        // showCustomSnackBar("All went well", title: "Perfect");
+        SignUpBodyModel signUpBody = SignUpBodyModel(
+          name: name,
+          phone: phone,
+          email: email,
+          password: password,
+        );
+        authController.registraion(signUpBody).then((status) {
+          if (status.isSuccess) {
+            showCustomSnackBar("Registration success",
+                isError: false, title: "Success");
+          } else {
+            showCustomSnackBar(status.message);
+          }
+        });
+
+        print(signUpBody.toString());
+      }
+    }
+
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -73,17 +123,21 @@ class SignUpPage extends StatelessWidget {
           SizedBox(
             height: Dimensions.height30,
           ),
-          Container(
-            width: Dimensions.screenWidth / 2,
-            height: Dimensions.screenHeight / 14,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Dimensions.radius30),
-                color: AppColors.mainColor),
-            child: Center(
-              child: BigText(
-                text: "SIGN UP",
-                size: Dimensions.font26,
-                color: Colors.white,
+
+          GestureDetector(
+            onTap: _registration,
+            child: Container(
+              width: Dimensions.screenWidth / 2,
+              height: Dimensions.screenHeight / 14,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Dimensions.radius30),
+                  color: AppColors.mainColor),
+              child: Center(
+                child: BigText(
+                  text: "SIGN UP",
+                  size: Dimensions.font26,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
