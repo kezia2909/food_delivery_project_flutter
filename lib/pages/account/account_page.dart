@@ -33,7 +33,6 @@ class AccountPage extends StatelessWidget {
             size: 24,
             color: Colors.white,
           )),
-
       body: GetBuilder<UserController>(builder: (userController) {
         return _userLoggedIn
             ? (userController.isLoading
