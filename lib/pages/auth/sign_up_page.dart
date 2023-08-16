@@ -1,8 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
 import 'package:food_delivery_project/base/show_custom_snack_bar.dart';
 import 'package:food_delivery_project/controllers/auth_controller.dart';
 import 'package:food_delivery_project/models/signup_body_model.dart';
+
 import 'package:food_delivery_project/pages/auth/sign_in_page.dart';
 import 'package:food_delivery_project/utils/colors.dart';
 import 'package:food_delivery_project/utils/dimensions.dart';
@@ -24,6 +26,7 @@ class SignUpPage extends StatelessWidget {
       "facebook.png",
       "twitter.png",
     ];
+
     void _registration() {
       var authController = Get.find<AuthController>();
 
@@ -67,6 +70,7 @@ class SignUpPage extends StatelessWidget {
         print(signUpBody.toString());
       }
     }
+
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -119,6 +123,7 @@ class SignUpPage extends StatelessWidget {
           SizedBox(
             height: Dimensions.height30,
           ),
+
           GestureDetector(
             onTap: _registration,
             child: Container(
