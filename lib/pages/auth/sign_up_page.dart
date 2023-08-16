@@ -105,6 +105,7 @@ class SignUpPage extends StatelessWidget {
                     textController: passwordController,
                     hintText: "password",
                     icon: Icons.password,
+                    isObscure: true,
                   ),
                   SizedBox(
                     height: Dimensions.height5,

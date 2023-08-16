@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_project/controllers/cart_controller.dart';
+import 'package:food_delivery_project/routes/route_helper.dart';
 import 'package:food_delivery_project/utils/colors.dart';
 import 'package:food_delivery_project/utils/dimensions.dart';
 import 'package:food_delivery_project/widgets/account_widget.dart';
 import 'package:food_delivery_project/widgets/app_icon.dart';
 import 'package:food_delivery_project/widgets/big_text.dart';
+import 'package:get/get.dart';
+
+import '../../controllers/auth_controller.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({super.key});
@@ -48,7 +53,7 @@ class AccountPage extends StatelessWidget {
                     bigText: BigText(text: "Kezia"),
                   ),
                   SizedBox(
-                    height: Dimensions.height20,
+                    height: Dimensions.height10,
                   ),
                   // phone
                   AccountWidget(
@@ -62,7 +67,7 @@ class AccountPage extends StatelessWidget {
                     bigText: BigText(text: "0812 3456 7890"),
                   ),
                   SizedBox(
-                    height: Dimensions.height20,
+                    height: Dimensions.height10,
                   ),
                   // email
                   AccountWidget(
@@ -76,7 +81,7 @@ class AccountPage extends StatelessWidget {
                     bigText: BigText(text: "kezia@gmail.com"),
                   ),
                   SizedBox(
-                    height: Dimensions.height20,
+                    height: Dimensions.height10,
                   ),
                   // address
                   AccountWidget(
@@ -90,7 +95,7 @@ class AccountPage extends StatelessWidget {
                     bigText: BigText(text: "melati street IV / 1"),
                   ),
                   SizedBox(
-                    height: Dimensions.height20,
+                    height: Dimensions.height10,
                   ),
                   // message
                   AccountWidget(
@@ -101,49 +106,36 @@ class AccountPage extends StatelessWidget {
                       iconSize: Dimensions.iconSize24,
                       size: Dimensions.iconSize24 * 2,
                     ),
-                    bigText: BigText(text: "Kezia"),
+                    bigText: BigText(text: "Messages"),
                   ),
                   SizedBox(
-                    height: Dimensions.height20,
+                    height: Dimensions.height10,
                   ),
-                  AccountWidget(
-                    appIcon: AppIcon(
-                      icon: Icons.message_outlined,
-                      backgroundColor: Colors.redAccent,
-                      iconColor: Colors.white,
-                      iconSize: Dimensions.iconSize24,
-                      size: Dimensions.iconSize24 * 2,
+                  GestureDetector(
+                    onTap: () {
+                      if (Get.find<AuthController>().userLoggedIn()) {
+                        print("START LOGOUT");
+                        Get.find<AuthController>().clearSharedData();
+                        Get.find<CartController>().clear();
+                        Get.find<CartController>().clearCartHistory();
+                        Get.offNamed(RouteHelper.getSignInPage());
+                      } else {
+                        print("you already log out");
+                      }
+                    },
+                    child: AccountWidget(
+                      appIcon: AppIcon(
+                        icon: Icons.logout,
+                        backgroundColor: Colors.redAccent,
+                        iconColor: Colors.white,
+                        iconSize: Dimensions.iconSize24,
+                        size: Dimensions.iconSize24 * 2,
+                      ),
+                      bigText: BigText(text: "SIGN OUT"),
                     ),
-                    bigText: BigText(text: "Kezia"),
                   ),
                   SizedBox(
-                    height: Dimensions.height20,
-                  ),
-                  AccountWidget(
-                    appIcon: AppIcon(
-                      icon: Icons.message_outlined,
-                      backgroundColor: Colors.redAccent,
-                      iconColor: Colors.white,
-                      iconSize: Dimensions.iconSize24,
-                      size: Dimensions.iconSize24 * 2,
-                    ),
-                    bigText: BigText(text: "Kezia"),
-                  ),
-                  SizedBox(
-                    height: Dimensions.height20,
-                  ),
-                  AccountWidget(
-                    appIcon: AppIcon(
-                      icon: Icons.message_outlined,
-                      backgroundColor: Colors.redAccent,
-                      iconColor: Colors.white,
-                      iconSize: Dimensions.iconSize24,
-                      size: Dimensions.iconSize24 * 2,
-                    ),
-                    bigText: BigText(text: "Kezia"),
-                  ),
-                  SizedBox(
-                    height: Dimensions.height20,
+                    height: Dimensions.height10,
                   ),
                 ],
               ),

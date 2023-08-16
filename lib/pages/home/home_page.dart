@@ -6,6 +6,8 @@ import 'package:food_delivery_project/pages/cart/cart_page.dart';
 import 'package:food_delivery_project/pages/home/main_food_page.dart';
 import 'package:food_delivery_project/utils/colors.dart';
 
+import '../auth/sign_in_page.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -18,9 +20,8 @@ class _HomePageState extends State<HomePage> {
 
   List pages = [
     MainFoodPage(),
-    SignUpPage(),
     CartHistory(),
-    // CartPage(),
+    CartPage(),
     AccountPage(),
   ];
 
