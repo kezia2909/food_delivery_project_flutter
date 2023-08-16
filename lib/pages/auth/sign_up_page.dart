@@ -13,6 +13,8 @@ import 'package:food_delivery_project/widgets/app_text_field.dart';
 import 'package:food_delivery_project/widgets/big_text.dart';
 import 'package:get/get.dart';
 
+import '../../routes/route_helper.dart';
+
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
 
@@ -63,6 +65,7 @@ class SignUpPage extends StatelessWidget {
           if (status.isSuccess) {
             showCustomSnackBar("Registration success",
                 isError: false, title: "Success");
+            Get.offNamed(RouteHelper.getInitial());
           } else {
             showCustomSnackBar(status.message);
           }
